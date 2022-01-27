@@ -10,6 +10,10 @@ const Container = styled.div`
   height: 100vh;
   flex-direction: column;
   gap: 10px;
+  margin-top: 35px;
+  @media (max-width: 390px) {
+    margin-top: 100px;
+  }
 `;
 export default function Home({ routines }) {
   return (

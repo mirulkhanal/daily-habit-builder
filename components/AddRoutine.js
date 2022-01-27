@@ -12,13 +12,16 @@ const Input = styled.input`
   color: grey;
 `;
 const Form = styled.form`
-  top: 0;
-  margin-top: 70px;
+  /* margin-top: 70px; */
   display: flex;
   justify-content: Center;
   align-items: center;
   gap: 10px;
-  width: 70%;
+  height: 100%;
+  @media screen and (max-width: 390px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const Button = styled.button`
   border: none;
@@ -31,6 +34,7 @@ const Button = styled.button`
   color: white;
   gap: 5px;
   cursor: pointer;
+  text-transform: uppercase;
 `;
 const AddRoutine = () => {
   const router = useRouter();

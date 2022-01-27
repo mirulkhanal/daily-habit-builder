@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import axios from 'axios';
 import nc from 'next-connect';
-import Routine from '../../model/Routine';
-import db from '../../utils/db';
+import Routine from '../../../model/Routine';
+import db from '../../../utils/db';
 
 db();
 const handler = nc();
@@ -24,4 +24,5 @@ handler.get(async (req, res) => {
     return res.status(400).json(error.message);
   }
 });
+
 export default handler;

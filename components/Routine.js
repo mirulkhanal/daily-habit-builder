@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import Link from 'next/link';
-
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 const Container = styled.div`
   justify-content: center;
   flex-wrap: wrap;
@@ -13,7 +14,6 @@ const Container = styled.div`
   background-color: #1e2022;
   width: 99%;
   color: white;
-  /* min-width: 50%; */
   position: relative;
 `;
 
@@ -24,6 +24,9 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 50px;
+  @media (max-width: 390px) {
+    padding: 0 20px;
+  }
 `;
 
 const Actions = styled.div`
@@ -35,17 +38,25 @@ const Actions = styled.div`
   align-items: center;
   gap: 10px;
 `;
+
+const DeleteButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+const EditButton = styled(DeleteButton)``;
 const StartTime = styled.p``;
 const EndTime = styled.p``;
 const Title = styled.h1`
-  /* width: 100%; */
-  @media (width: 390px) {
-    width: 68%;
+  @media (max-width: 390px) {
+    width: 65%;
     margin-right: 20px;
   }
 `;
 
 const RoutineList = ({ routine }) => {
+  const router = useRouter();
   const convertTime = (time) => {
     const timeHour = Number(time.split(':')[0]);
     const timeMinutes = time.split(':')[1];
@@ -53,20 +64,29 @@ const RoutineList = ({ routine }) => {
       ? `${timeHour - 12}:${timeMinutes} PM`
       : `${timeHour}:${timeMinutes} AM`;
   };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/routine/${routine._id}`);
+      router.push('/');
+      toast.success('Successfully removed the routine task');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
       <Title>{routine.title}</Title>
       <Actions>
-        <Link href='/' passHref>
-          <a style={{ cursor: 'pointer' }}>
-            <DeleteForeverOutlinedIcon style={{ color: '#FF2E63' }} />
-          </a>
-        </Link>
-        <Link href='/' passHref>
-          <a style={{ cursor: 'pointer' }}>
-            <EditOutlinedIcon style={{ color: '#E0F9B5' }} />
-          </a>
-        </Link>
+        <DeleteButton>
+          <DeleteForeverOutlinedIcon
+            style={{ color: '#FF2E63' }}
+            onClick={handleDelete}
+          />
+        </DeleteButton>
+        <EditButton>
+          <EditOutlinedIcon style={{ color: '#E0F9B5' }} />
+        </EditButton>
       </Actions>
       <Content>
         <StartTime>Start Time: {convertTime(routine.startTime)}</StartTime>
