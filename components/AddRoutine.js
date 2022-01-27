@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddIcon from '@mui/icons-material/Add';
+import { toast } from 'react-toastify';
 const Input = styled.input`
   outline: none;
   text-align: center;
@@ -47,8 +48,9 @@ const AddRoutine = () => {
       });
       router.push('/');
       setTask('');
+      toast.success('Successfully added the routine');
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.error);
     }
   };
   return (
