@@ -19,8 +19,10 @@ export default function Home({ routines }) {
     </Container>
   );
 }
-export const getServerSideProps = async () => {
-  const response = await axios.get('http://localhost:3000/api/routine');
+export const getServerSideProps = async ({ req }) => {
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const baseUrl = req ? `${protocol}://${req.headers.host}` : '';
+  const response = await axios.get(baseUrl + '/api/routine');
   return {
     props: {
       routines: response.data.routines,
