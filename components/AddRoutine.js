@@ -50,7 +50,7 @@ const AddRoutine = () => {
       setTask('');
       toast.success('Successfully added the routine');
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response.data);
     }
   };
   return (

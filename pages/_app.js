@@ -5,7 +5,14 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
-      <ToastContainer />
+      <ToastContainer
+        position='top-right'
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnHover
+      />
     </>
   );
 }
