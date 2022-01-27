@@ -37,7 +37,13 @@ const Actions = styled.div`
 `;
 const StartTime = styled.p``;
 const EndTime = styled.p``;
-const Title = styled.h1``;
+const Title = styled.h1`
+  /* width: 100%; */
+  @media (width: 390px) {
+    width: 68%;
+    margin-right: 20px;
+  }
+`;
 
 const RoutineList = ({ routine }) => {
   const convertTime = (time) => {

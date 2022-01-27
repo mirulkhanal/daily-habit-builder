@@ -21,7 +21,7 @@ handler.get(async (req, res) => {
     const routines = await Routine.find();
     return res.status(200).json({ routines });
   } catch (error) {
-    return res.status(400).json(error);
+    return res.status(400).json(error.message);
   }
 });
 export default handler;
